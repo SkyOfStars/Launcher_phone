@@ -351,7 +351,7 @@ public final class Utilities {
 
             sOldBounds.set(icon.getBounds());
             icon.setBounds(left, top, left+width, top+height);
-            canvas.save(Canvas.MATRIX_SAVE_FLAG);
+//            canvas.save(Canvas.MATRIX_SAVE_FLAG);//报错的地方
             canvas.scale(scale, scale, textureWidth / 2, textureHeight / 2);
             icon.draw(canvas);
             canvas.restore();
