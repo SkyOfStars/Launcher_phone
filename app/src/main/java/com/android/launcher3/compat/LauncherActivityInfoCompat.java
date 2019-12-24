@@ -22,6 +22,9 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 
+/**
+ * 应用ActivityInfo
+ */
 public abstract class LauncherActivityInfoCompat {
 
     LauncherActivityInfoCompat() {

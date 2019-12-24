@@ -1128,6 +1128,9 @@ public class LauncherProvider extends ContentProvider {
         }
     }
 
+    /**
+     * LauncherProvider 变动进行处理
+     */
     private static class ChangeListenerWrapper implements Handler.Callback {
 
         private static final int MSG_LAUNCHER_PROVIDER_CHANGED = 1;

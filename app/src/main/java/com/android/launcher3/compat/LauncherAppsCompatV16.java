@@ -57,10 +57,17 @@ public class LauncherAppsCompatV16 extends LauncherAppsCompat {
         mPm = context.getPackageManager();
         mContext = context;
         mPackageMonitor = new PackageMonitor();
-   }
+    }
 
+    /**
+     * 根据应用入口条件查询获取 应用信息
+     *
+     * @param packageName
+     * @param user
+     * @return
+     */
     public List<LauncherActivityInfoCompat> getActivityList(String packageName,
-            UserHandleCompat user) {
+                                                            UserHandleCompat user) {
         final Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         mainIntent.setPackage(packageName);
@@ -73,6 +80,11 @@ public class LauncherAppsCompatV16 extends LauncherAppsCompat {
         return list;
     }
 
+    /**
+     * @param intent
+     * @param user
+     * @return
+     */
     public LauncherActivityInfoCompat resolveActivity(Intent intent, UserHandleCompat user) {
         ResolveInfo info = mPm.resolveActivity(intent, 0);
         if (info != null) {
@@ -81,8 +93,16 @@ public class LauncherAppsCompatV16 extends LauncherAppsCompat {
         return null;
     }
 
+    /**
+     * 调起 Activity
+     *
+     * @param component
+     * @param user
+     * @param sourceBounds
+     * @param opts
+     */
     public void startActivityForProfile(ComponentName component, UserHandleCompat user,
-            Rect sourceBounds, Bundle opts) {
+                                        Rect sourceBounds, Bundle opts) {
         Intent launchIntent = new Intent(Intent.ACTION_MAIN);
         launchIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         launchIntent.setComponent(component);
@@ -116,10 +136,18 @@ public class LauncherAppsCompatV16 extends LauncherAppsCompat {
         }
     }
 
+
     public boolean isPackageEnabledForProfile(String packageName, UserHandleCompat user) {
         return PackageManagerHelper.isAppEnabled(mPm, packageName);
     }
 
+    /**
+     * Activity 是否可用
+     *
+     * @param component
+     * @param user
+     * @return
+     */
     public boolean isActivityEnabledForProfile(ComponentName component, UserHandleCompat user) {
         try {
             ActivityInfo info = mPm.getActivityInfo(component, 0);
@@ -139,21 +167,23 @@ public class LauncherAppsCompatV16 extends LauncherAppsCompat {
 
     private void registerForPackageIntents() {
         IntentFilter filter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
-        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-        filter.addAction(Intent.ACTION_PACKAGE_CHANGED);
+        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);// package has been removed
+        filter.addAction(Intent.ACTION_PACKAGE_CHANGED);//application package has been changed
         filter.addDataScheme("package");
         mContext.registerReceiver(mPackageMonitor, filter);
         filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_EXTERNAL_APPLICATIONS_AVAILABLE);
-        filter.addAction(Intent.ACTION_EXTERNAL_APPLICATIONS_UNAVAILABLE);
+        filter.addAction(Intent.ACTION_EXTERNAL_APPLICATIONS_AVAILABLE);//应用当前可用的
+        filter.addAction(Intent.ACTION_EXTERNAL_APPLICATIONS_UNAVAILABLE);//应用当前不可用的
         mContext.registerReceiver(mPackageMonitor, filter);
     }
 
-    @Thunk synchronized List<OnAppsChangedCallbackCompat> getCallbacks() {
+    @Thunk
+    synchronized List<OnAppsChangedCallbackCompat> getCallbacks() {
         return new ArrayList<OnAppsChangedCallbackCompat>(mCallbacks);
     }
 
-    @Thunk class PackageMonitor extends BroadcastReceiver {
+    @Thunk
+    class PackageMonitor extends BroadcastReceiver {
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
             final UserHandleCompat user = UserHandleCompat.myUserHandle();

@@ -22,6 +22,9 @@ import android.os.Build;
 import android.os.UserHandle;
 import com.android.launcher3.Utilities;
 
+/**
+ * 应用多用户兼容处理
+ */
 public class UserHandleCompat {
     private UserHandle mUser;
 
@@ -34,7 +37,7 @@ public class UserHandleCompat {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static UserHandleCompat myUserHandle() {
-        if (Utilities.ATLEAST_JB_MR1) {
+        if (Utilities.ATLEAST_JB_MR1) {//大于17的版本
             return new UserHandleCompat(android.os.Process.myUserHandle());
         } else {
             return new UserHandleCompat();
@@ -89,13 +92,13 @@ public class UserHandleCompat {
      * profiles so this is a no-op.
      */
     public void addToIntent(Intent intent, String name) {
-        if (Utilities.ATLEAST_LOLLIPOP && mUser != null) {
+        if (Utilities.ATLEAST_LOLLIPOP && mUser != null) {//>=21
             intent.putExtra(name, mUser);
         }
     }
 
     public static UserHandleCompat fromIntent(Intent intent) {
-        if (Utilities.ATLEAST_LOLLIPOP) {
+        if (Utilities.ATLEAST_LOLLIPOP) {//>=21
             UserHandle user = intent.getParcelableExtra(Intent.EXTRA_USER);
             if (user != null) {
                 return UserHandleCompat.fromUser(user);

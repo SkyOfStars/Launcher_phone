@@ -403,7 +403,7 @@ public class Launcher extends Activity
                 == Configuration.ORIENTATION_LANDSCAPE ?
                 app.getInvariantDeviceProfile().landscapeProfile
                 : app.getInvariantDeviceProfile().portraitProfile;
-        //
+        //设置SP
         mSharedPrefs = Utilities.getPrefs(this);
         mIsSafeModeEnabled = getPackageManager().isSafeMode();//是否为安全模式
         mModel = app.setLauncher(this);

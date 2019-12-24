@@ -27,7 +27,9 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 
-
+/**
+ * v16版本及以下应用的信息
+ */
 public class LauncherActivityInfoCompatV16 extends LauncherActivityInfoCompat {
     private final ResolveInfo mResolveInfo;
     private final ActivityInfo mActivityInfo;
@@ -54,6 +56,11 @@ public class LauncherActivityInfoCompatV16 extends LauncherActivityInfoCompat {
         return mResolveInfo.loadLabel(mPm);
     }
 
+    /**
+     * 获取桌面 应用的图标
+     * @param density
+     * @return
+     */
     public Drawable getIcon(int density) {
         int iconRes = mResolveInfo.getIconResource();
         Resources resources = null;
@@ -81,6 +88,10 @@ public class LauncherActivityInfoCompatV16 extends LauncherActivityInfoCompat {
         return mActivityInfo.applicationInfo;
     }
 
+    /**
+     * 获取应用首次安装的时间
+     * @return long
+     */
     public long getFirstInstallTime() {
         try {
             PackageInfo info = mPm.getPackageInfo(mActivityInfo.packageName, 0);
