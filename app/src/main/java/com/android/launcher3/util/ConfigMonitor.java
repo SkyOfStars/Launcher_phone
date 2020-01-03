@@ -28,6 +28,7 @@ import com.android.launcher3.Utilities;
 /**
  * {@link BroadcastReceiver} which watches configuration changes and
  * restarts the process in case changes which affect the device profile occur.
+ * 监听配置的改变
  */
 public class ConfigMonitor extends BroadcastReceiver {
 

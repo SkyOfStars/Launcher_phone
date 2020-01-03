@@ -61,6 +61,7 @@ import java.util.Stack;
 
 /**
  * Cache of application icons.  Icons can be made from any thread.
+ * 应用程序的图标
  */
 public class IconCache {
 

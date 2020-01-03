@@ -34,16 +34,22 @@ import com.android.launcher3.util.ComponentKey;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 桌面可拖动组件管理，像天气、闹钟
+ */
 public abstract class AppWidgetManagerCompat {
 
     private static final Object sInstanceLock = new Object();
     private static AppWidgetManagerCompat sInstance;
 
+    final AppWidgetManager mAppWidgetManager;
+
+    final Context mContext;
 
     public static AppWidgetManagerCompat getInstance(Context context) {
         synchronized (sInstanceLock) {
             if (sInstance == null) {
-                if (Utilities.ATLEAST_LOLLIPOP) {
+                if (Utilities.ATLEAST_LOLLIPOP) {//>=21
                     sInstance = new AppWidgetManagerCompatVL(context.getApplicationContext());
                 } else {
                     sInstance = new AppWidgetManagerCompatV16(context.getApplicationContext());
@@ -52,9 +58,6 @@ public abstract class AppWidgetManagerCompat {
             return sInstance;
         }
     }
-
-    final AppWidgetManager mAppWidgetManager;
-    final Context mContext;
 
     AppWidgetManagerCompat(Context context) {
         mContext = context;

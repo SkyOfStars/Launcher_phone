@@ -94,10 +94,13 @@ public class LauncherAppState {
         if (TestingUtils.MEMORY_DUMP_ENABLED) {
             TestingUtils.startTrackingMemory(sContext);
         }
-
+        //桌面配置文件
         mInvariantDeviceProfile = new InvariantDeviceProfile(sContext);
+        //应用程序图标
         mIconCache = new IconCache(sContext, mInvariantDeviceProfile);
+        //组件管理
         mWidgetCache = new WidgetPreviewLoader(sContext, mIconCache);
+        //桌面快捷方式管理
         mDeepShortcutManager = new DeepShortcutManager(sContext, new ShortcutCache());
 
         mAppFilter = AppFilter.loadByName(sContext.getString(R.string.app_filter_class));
@@ -105,7 +108,7 @@ public class LauncherAppState {
 
         LauncherAppsCompat.getInstance(sContext).addOnAppsChangedCallback(mModel);
 
-        // Register intent receivers
+        // 注册 LauncherModel广播
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_LOCALE_CHANGED);
         // For handling managed profiles
@@ -122,7 +125,7 @@ public class LauncherAppState {
 
         sContext.registerReceiver(mModel, filter);
         UserManagerCompat.getInstance(sContext).enableAndResetCache();
-        if (!Utilities.ATLEAST_KITKAT) {
+        if (!Utilities.ATLEAST_KITKAT) {//<19 The current system wallpaper has changed
             sContext.registerReceiver(new BroadcastReceiver() {
 
                 @Override
@@ -131,6 +134,7 @@ public class LauncherAppState {
                 }
             }, new IntentFilter(Intent.ACTION_WALLPAPER_CHANGED));
         }
+        //配置改变监听
         new ConfigMonitor(sContext).register();
 
         ExtractionUtils.startColorExtractionServiceIfNecessary(sContext);
