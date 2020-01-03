@@ -396,8 +396,8 @@ public class Launcher extends Activity
 
         super.onCreate(savedInstanceState);
         LauncherAppState.setApplicationContext(getApplicationContext());
+        //建立Model层与Controller层的关联
         LauncherAppState app = LauncherAppState.getInstance();
-
         // Load configuration-specific DeviceProfile
         mDeviceProfile = getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_LANDSCAPE ?
@@ -425,8 +425,10 @@ public class Launcher extends Activity
         mPaused = false;
 
         setContentView(R.layout.launcher);
-
+        //建立View层与Controller层的关联
         setupViews();
+
+        //根据默认配置参数对控件布局作调整
         mDeviceProfile.layout(this, false /* notifyListeners */);
         mExtractedColors = new ExtractedColors();
         loadExtractedColorsAndColorItems();
@@ -445,6 +447,7 @@ public class Launcher extends Activity
 
         // We only load the page synchronously if the user rotates (or triggers a
         // configuration change) while launcher is in the foreground
+        //加载桌面用于显示的数据
         if (!mModel.startLoader(mWorkspace.getRestorePage())) {
             // If we are not binding synchronously, show a fade in animation when
             // the first page bind completes.
