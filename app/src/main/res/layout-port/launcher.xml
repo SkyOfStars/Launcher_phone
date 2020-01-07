@@ -18,11 +18,12 @@
 <com.android.launcher3.LauncherRootView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:launcher="http://schemas.android.com/apk/res-auto"
-
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/launcher"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    tools:ignore="MissingDefaultResource">
 
     <com.android.launcher3.dragndrop.DragLayer
         android:id="@+id/drag_layer"
@@ -41,6 +42,14 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             launcher:pageIndicator="@+id/page_indicator">
+
+            <include
+                android:id="@+id/apps_view"
+                layout="@layout/all_apps"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
+                launcher:layout_ignoreInsets="true" />
         </com.android.launcher3.Workspace>
 
         <!-- DO NOT CHANGE THE ID -->
@@ -73,12 +82,6 @@
             android:layout_height="match_parent"
             android:visibility="invisible" />
 
-        <include layout="@layout/all_apps"
-            android:id="@+id/apps_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible"
-            launcher:layout_ignoreInsets="true" />
     </com.android.launcher3.dragndrop.DragLayer>
 
 </com.android.launcher3.LauncherRootView>

@@ -249,7 +249,7 @@ public class Launcher extends Activity
     private DropTargetBar mDropTargetBar;
 
     // Main container view for the all apps screen.
-    @Thunk AllAppsContainerView mAppsView;
+    @Thunk AllAppsContainerView mAppsView;//桌面app的布局
     AllAppsTransitionController mAllAppsController;
 
     // Main container view and the model for the widget tray screen.
@@ -436,7 +436,7 @@ public class Launcher extends Activity
         ((AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE))
                 .addAccessibilityStateChangeListener(this);
 
-        lockAllApps();
+            lockAllApps();
 
         mSavedState = savedInstanceState;
         restoreState(mSavedState);
@@ -2379,6 +2379,7 @@ public class Launcher extends Activity
     }
 
     /**
+     * 应用点击事件
      * Launches the intent referred by the clicked shortcut.
      *
      * @param v The view representing the clicked shortcut.
@@ -2818,6 +2819,13 @@ public class Launcher extends Activity
         return new Rect(pos[0], pos[1], pos[0] + v.getWidth(), pos[1] + v.getHeight());
     }
 
+    /**
+     * 开启应用
+     * @param v
+     * @param intent
+     * @param item
+     * @return
+     */
     public boolean startActivitySafely(View v, Intent intent, ItemInfo item) {
         if (mIsSafeModeEnabled && !Utilities.isSystemApp(this, intent)) {
             Toast.makeText(this, R.string.safemode_shortcut_error, Toast.LENGTH_SHORT).show();

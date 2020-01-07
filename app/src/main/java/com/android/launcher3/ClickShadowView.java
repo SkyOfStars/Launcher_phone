@@ -26,6 +26,9 @@ import android.view.View;
 import android.view.ViewDebug;
 import android.view.ViewGroup;
 
+/**
+ * 点击阴影效果
+ */
 public class ClickShadowView extends View {
 
     private static final int SHADOW_SIZE_FACTOR = 3;

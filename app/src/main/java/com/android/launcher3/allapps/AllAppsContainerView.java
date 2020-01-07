@@ -144,13 +144,13 @@ public class AllAppsContainerView extends BaseContainerView implements DragSourc
 
     private final Launcher mLauncher;
     private final AlphabeticalAppsList mApps;
-    private final AllAppsGridAdapter mAdapter;
+    private final AllAppsGridAdapter mAdapter;//app 数据
     private final RecyclerView.LayoutManager mLayoutManager;
     private final RecyclerView.ItemDecoration mItemDecoration;
 
     // The computed bounds of the container
     private final Rect mContentBounds = new Rect();
-
+    //桌面app进行布局
     private AllAppsRecyclerView mAppsRecyclerView;
     private AllAppsSearchBarController mSearchBarController;
 

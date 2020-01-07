@@ -23,6 +23,7 @@ import android.widget.FrameLayout;
 import com.android.launcher3.dynamicui.ExtractedColors;
 
 /**
+ * 页面导航指示器基类
  * Base class for a page indicator.
  */
 public abstract class PageIndicator extends FrameLayout {

@@ -1138,7 +1138,7 @@ public class LauncherModel extends BroadcastReceiver
      * Set this as the current Launcher activity object for the loader.
      */
     public void initialize(Callbacks callbacks) {
-        synchronized (mLock) {
+            synchronized (mLock) {
             Preconditions.assertUIThread();
             // Remove any queued UI runnables
             mHandler.cancelAll();
@@ -1484,6 +1484,7 @@ public class LauncherModel extends BroadcastReceiver
             // workspace first (default).
             keep_running: {
                 if (DEBUG_LOADERS) Log.d(TAG, "step 1: loading workspace");
+                //加载Workspace
                 loadAndBindWorkspace();
 
                 if (mStopped) {
@@ -1492,13 +1493,13 @@ public class LauncherModel extends BroadcastReceiver
 
                 waitForIdle();
 
-                // second step
+                // second step 加载app
                 if (DEBUG_LOADERS) Log.d(TAG, "step 2: loading all apps");
                 loadAndBindAllApps();
 
                 waitForIdle();
 
-                // third step
+                // third step  加载图标
                 if (DEBUG_LOADERS) Log.d(TAG, "step 3: loading deep shortcuts");
                 loadAndBindDeepShortcuts();
             }
